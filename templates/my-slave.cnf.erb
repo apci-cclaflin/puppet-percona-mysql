@@ -390,9 +390,10 @@ end %>
 
 <% if mysql_database_ignore != 'false'
 # Databases to Ignore for replication
-   mysql_replicate_databases_ignore.each do|mysql_replicate_database_ignore| %>
+   mysql_database_ignore.each do|mysql_replicate_database_ignore| %>
 replicate-ignore-db=<%= mysql_replicate_database_ignore %>
-<% end %>
+<% end
+end %>
 
 # Tables to ignore
 <% if mysql_wildcard_ignore != 'false'
