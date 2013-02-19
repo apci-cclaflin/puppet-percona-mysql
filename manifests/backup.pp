@@ -55,6 +55,10 @@ class mysql::backup ($backup_major_version = '2.5', $backup_version = '2.5.1-01'
 
 class mysql::backup::daily {
 
+  #Default cron time if unspecified elsewhere
+  $backup_hour  = hiera('mysql_backup_hour', '3')
+  $backup_min   = hiera('mysql_backup_min', '0')
+
   cron { "mysqlbackup-daily":
     ensure   => present,
     command  => "/usr/local/bin/mysqlbackup.sh > /dev/null 2>&1",
