@@ -63,8 +63,8 @@ class mysql::backup::daily {
     ensure   => present,
     command  => "/usr/local/bin/mysqlbackup.sh > /dev/null 2>&1",
     user     => "root",
-    hour     => 3,
-    minute   => 0,
+    hour     => "${backup_hour}",
+    minute   => "${backup_min}",
     require  => File["/usr/local/bin/mysqlbackup.sh"],
   }
 
