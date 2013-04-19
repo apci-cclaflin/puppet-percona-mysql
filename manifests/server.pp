@@ -1,5 +1,7 @@
 class mysql::server {
 
+  $innodb_log_file_repair = hiera('mysql_innodb_log_file_repair')
+
   include mysql
   include mysql::backup
   include mysql::client
@@ -33,8 +35,8 @@ class mysql::server {
     content => template('mysql/mysql-check-file-sizes.erb'),
   }
 
-  case $environment {
-    "development","importdev","integration": {
+  case $innodb_log_file_repair {
+    "true": {
       $mysql_check_command = "mysql-check-file-sizes /var/lib/mysql repair"
     }
     default: {
