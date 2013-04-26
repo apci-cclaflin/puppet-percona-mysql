@@ -1,6 +1,7 @@
 class mysql::server {
 
   $innodb_log_file_repair = hiera('mysql_innodb_log_file_repair')
+  $mysql_percona_version = hiera('mysql_percona_version', '5.5.30-rel30.2-500.precise')
 
   include mysql
   include mysql::backup
@@ -10,8 +11,8 @@ class mysql::server {
 
   package {
     "percona-server-server-5.5":
-      ensure  => installed,
-      require => [ Apt::Source["percona"], Package["mysql-server"], Package["mysql-client"], Package["percona-server-common-5.5"] ],
+      ensure  => $mysql_percona_version,
+      require => [ Apt::Source["percona"], Package["mysql-server"], Package["mysql-client"], Package["percona-server-client-5.5"], Package["percona-server-common-5.5"] ],
       notify  => [ Exec["mysql-upgrade-backup"], Exec["mysql-upgrade"], Service["mysql"] ];
     "mytop": ensure => latest;
     "percona-toolkit": ensure => latest;

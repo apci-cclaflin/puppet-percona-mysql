@@ -9,6 +9,8 @@
 
 class mysql {
 
+  $mysql_percona_version = hiera('mysql_percona_version', '5.5.30-rel30.2-500.precise')
+
   apt::source { "percona":
     location    => "http://repo.percona.com/apt",
     release     => "${lsbdistcodename}",
@@ -19,7 +21,7 @@ class mysql {
   }
 
   package { "percona-server-common-5.5":
-    ensure  => installed,
+    ensure  => $mysql_percona_version,
     require => [ Apt::Source["percona"], Package["mysql-common"] ],
   }
 
