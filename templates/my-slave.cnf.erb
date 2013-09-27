@@ -72,6 +72,7 @@ ssl-key = <%= ssl_key %>
 #   also need to also adjust /etc/apparmor.d/usr.sbin.mysqld.
 #
 
+innodb_file_per_table
 user    = mysql
 pid-file  = /var/run/mysqld/mysqld.pid
 socket    = /var/run/mysqld/mysqld.sock
@@ -366,19 +367,19 @@ report_host = <%= report_host %>
 #
 <% if master_host != 'false' %>
 # The replication master for this slave - required
-master-host = <%= master_host %>
+#master-host = <%= master_host %>
 <% end %>
 
 <% if master_user != 'false' %>
 # The username the slave will use for authentication when connecting
 # to the master - required
-master-user = <%= master_user %>
+#master-user = <%= master_user %>
 <% end %>
 
 <% if master_password != 'false' %>
 # The password the slave will authenticate with when connecting to
 # the master - required
-master-password = <%= master_password %>
+#master-password = <%= master_password %>
 <% end %>
 
 # Databases to replicate

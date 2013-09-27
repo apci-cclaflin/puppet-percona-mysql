@@ -1,7 +1,7 @@
 class mysql::server {
 
-  $innodb_log_file_repair = hiera('mysql_innodb_log_file_repair')
-  $mysql_percona_version = hiera('mysql_percona_version', '5.5.30-rel30.2-500.precise')
+  $innodb_log_file_repair = hiera('mysql_innodb_log_file_repair', 'false')
+  $mysql_percona_version = hiera('mysql_percona_version', 'latest')
 
   include mysql
   include mysql::backup
