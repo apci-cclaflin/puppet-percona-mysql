@@ -1,6 +1,6 @@
 class mysql::client {
 
-  $mysql_percona_version = hiera('mysql_percona_version', '5.5.30-rel30.2-500.precise')
+  $mysql_percona_version = hiera('mysql_percona_version', 'latest')
 
   include mysql
 
