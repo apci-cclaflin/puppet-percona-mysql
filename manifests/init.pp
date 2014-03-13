@@ -22,12 +22,7 @@ class mysql {
 
   package { "percona-server-common-5.5":
     ensure  => $mysql_percona_version,
-    require => [ Apt::Source["percona"], Package["mysql-common"] ],
-  }
-
-  package { "mysql-common":
-    ensure  => absent,
-    require => [ Package["mysql-client"], Package["mysql-server"] ],
+    require => Apt::Source["percona"],
   }
 
 }
