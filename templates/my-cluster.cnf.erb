@@ -2,63 +2,63 @@
 
 sort_buffer_size = 10M
 read_buffer_size = 4M
-query_cache_limit = <%= query_cache_limit %>
-query_cache_size = <%= query_cache_size %>
+query_cache_limit = <%= @query_cache_limit %>
+query_cache_size = <%= @query_cache_size %>
 bulk_insert_buffer_size = 64M
 
 binlog_format=ROW
 datadir=/var/lib/mysql
 default_storage_engine=InnoDB
 log_error=/var/log/mysql/error.log
-server-id=<%= server_id %>
+server-id=<%= @server_id %>
 user=mysql
 
-max_allowed_packet=<%= max_allowed_packet %>
-max_connections=<%= max_connections %>
+max_allowed_packet=<%= @max_allowed_packet %>
+max_connections=<%= @max_connections %>
 max_connect_errors=10
-max_heap_table_size=<%= max_heap_table_size %>
-tmp_table_size = <%= tmp_table_size %>
+max_heap_table_size=<%= @max_heap_table_size %>
+tmp_table_size = <%= @tmp_table_size %>
 
 innodb_file_per_table
 innodb_additional_mem_pool_size=16M
 innodb_autoinc_lock_mode=2
-innodb_buffer_pool_size=<%= innodb_buffer_pool_size %>
-innodb_flush_log_at_trx_commit=<%= innodb_flush_log_at_trx_commit %>
+innodb_buffer_pool_size=<%= @innodb_buffer_pool_size %>
+innodb_flush_log_at_trx_commit=<%= @innodb_flush_log_at_trx_commit %>
 innodb_lock_wait_timeout=120
 innodb_locks_unsafe_for_binlog=1
-innodb_log_file_size=<%= innodb_log_file_size %>
-innodb_log_files_in_group=<%= innodb_log_files_in_group %>
+innodb_log_file_size=<%= @innodb_log_file_size %>
+innodb_log_files_in_group=<%= @innodb_log_files_in_group %>
 innodb_thread_concurrency=16
 
-<% if mysql_bin_log != 'false' %>
+<% if @mysql_bin_log != 'false' -%>
 log-bin=mysql-bin
-<% end %>
+<% end -%>
 
-<% if mysql_log_slave_updates != 'false' %>
+<% if @mysql_log_slave_updates != 'false' -%>
 log_slave_updates
-<% end %>
+<% end -%>
 
-<% if mysql_replicate_databases != 'false' %>
-<%  mysql_replicate_databases.each do|mysql_replicate_database| %> 
+<% if @mysql_replicate_databases != 'false' -%>
+<%  @mysql_replicate_databases.each do|mysql_replicate_database| %>
 replicate-do-db=<%= mysql_replicate_database %><% end %>
-<% if mysql_wildcard_ignore != 'false' %>
-<% mysql_wildcard_ignore.each do|mysql_ignore_table| %>
+<% if @mysql_wildcard_ignore != 'false' %>
+<% @mysql_wildcard_ignore.each do|mysql_ignore_table| %>
 replicate-wild-ignore-table=<%= mysql_ignore_table %><% end %>
-<% end %>
-<% end %>
+<% end -%>
+<% end -%>
 
-<% if wsrep_cluster_bootstrap == 'true' %>
+<% if @wsrep_cluster_bootstrap == 'true' -%>
 wsrep_cluster_address=gcomm://
-<% else %>
-wsrep_cluster_address=<%= wsrep_cluster_address %>
-<% end %>
-wsrep_cluster_name=<%= wsrep_cluster_name %>
-wsrep_node_address=<%= ipaddress %>
-wsrep_node_name=<%= fqdn %>
+<% else -%>
+wsrep_cluster_address=<%= @wsrep_cluster_address %>
+<% end -%>
+wsrep_cluster_name=<%= @wsrep_cluster_name %>
+wsrep_node_address=<%= @ipaddress %>
+wsrep_node_name=<%= @fqdn %>
 wsrep_provider=/usr/lib/libgalera_smm.so
-wsrep_slave_threads=<%= wsrep_slave_threads %>
-wsrep_sst_auth="<%= wsrep_sst_user %>:<%= wsrep_sst_pass %>"
-wsrep_sst_method=<%= wsrep_sst_method %>
+wsrep_slave_threads=<%= @wsrep_slave_threads %>
+wsrep_sst_auth="<%= @wsrep_sst_user %>:<%= @wsrep_sst_pass %>"
+wsrep_sst_method=<%= @wsrep_sst_method %>
 
 [mysql]
-prompt="<%= fqdn %> mysql> "
+prompt="<%= @fqdn %> mysql> "
