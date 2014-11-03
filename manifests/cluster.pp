@@ -56,6 +56,15 @@ class mysql::cluster {
     require => [ Apt::Source["percona"], Package["percona-xtradb-cluster-server-5.5"] ],
   }
 
+  package { "percona-xtradb-cluster-galera-2.x":
+    ensure  => "latest",
+    require => [ Apt::Source["percona"], Package["percona-xtradb-cluster-server-5.5"] ],
+  }
+
+  package { "xinetd":
+    ensure  => "latest",
+  }
+
   if !defined(Package["mysql-server"]) {
     package {
       "mysql-server":
